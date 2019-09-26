@@ -4,8 +4,11 @@ doctype html
 html
   head
     title #{title}
-    link(rel="stylesheet" href="stylesheets/vendor/bootstrap.mis.css")
+    link(rel="stylesheet" href="/stylesheets/fonts/all.css")
+    link(rel="stylesheet" href="/stylesheets/vendor/bootstrap.min.css")
+    link(rel="stylesheet" href="/stylesheets/style.css")
+    script(src="javascripts/vendor/bootstrap.min.js")
     meta(charset="utf-8")
   body
-    #container
+    +flash
       block content

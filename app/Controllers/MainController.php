@@ -3,7 +3,6 @@
 
 class MainController extends SecurityController
 {
-
     public function initializeRoutes()
     {
         $this->get("/accueil", "renderMain");

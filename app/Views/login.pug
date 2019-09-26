@@ -1,38 +1,20 @@
-extends layout/layout
+include layout/layout
 
 block content
-  .container
-    .d-flex.justify-content-center.h-100
-      .card
-        .card-header
-          h3 Sign In
-          .d-flex.justify-content-end.social_icon
-            span
-              i.fab.fa-facebook-square
-            span
-              i.fab.fa-google-plus-square
-            span
-              i.fab.fa-twitter-square
-        .card-body
-          form
-            .input-group.form-group
-              .input-group-prepend
-                span.input-group-text
-                  i.fas.fa-user
-              input.form-control(type='text' placeholder='username')
-            .input-group.form-group
-              .input-group-prepend
-                span.input-group-text
-                  i.fas.fa-key
-              input.form-control(type='password' placeholder='password')
-            .row.align-items-center.remember
-              input(type='checkbox')
-              | Remember Me
-            .form-group
-              input.btn.float-right.login_btn(type='submit' value='Login')
-        .card-footer
-          .d-flex.justify-content-center.links
-            | Don&apos;t have an account?
-            a(href='#') Sign Up
-          .d-flex.justify-content-center
-            a(href='#') Forgot your password?
+  .container-fluid
+    .row.no-gutter
+      .d-none.d-md-flex.col-md-4.col-lg-6.bg-image
+      .col-md-8.col-lg-6
+        .login.d-flex.align-items-center.py-5
+          .container
+            .row
+              .col-md-9.col-lg-8.mx-auto
+                h2.login-heading.mb-4 Chatroom
+                form
+                  .form-label-group
+                    input#inputEmail.form-control(type='email' placeholder='Pseudonyme' required='' autofocus='')
+                    label(for='inputEmail') Pseudonyme
+                  .form-label-group
+                    input#inputSex.form-control.fa-check.custom-checkbox(type='checkbox' placeholder='Sexe' required='' autofocus='')
+                    label(for='inputEmail') Sexe
+                  button.btn.btn-lg.btn-primary.btn-block.btn-login.text-uppercase.font-weight-bold.mb-2(type='submit') Connexion
