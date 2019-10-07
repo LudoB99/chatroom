@@ -1,4 +1,19 @@
 include layout/layout
+
 block content
   .container-fluid
-    .container 
+    .row
+      nav.navbar.navbar-light.bg-light.w-100.shadow
+        a(href="#").navbar-brand.font-weight-bold Chatroom
+        a(href="/logout").fas.fa-sign-out-alt.fa-2x
+    .row.m-4.mt-5
+      .col.listChatrooms
+        <!-- LISTE DES CHATROOMS  -->
+        .list-group
+          .list-group-item ALLO
+          .list-group-item Mon
+          .list-group-item Coco
+      .col.chat
+        <!-- CHAT LOG -->
+      .col.listOnlineUsers
+        <!-- LISTE DES USERS EN LIGNE -->

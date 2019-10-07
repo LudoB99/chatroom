@@ -1,3 +1,20 @@
+/*
+*
+*       MAIN _ PAGE
+*
+*/
+
+
+
+
+
+
+/*
+*
+*       LOGIN
+*
+*/
+
 :root {
     --input-padding-x: 1.5rem;
     --input-padding-y: 0.75rem;
@@ -52,7 +69,7 @@
 }
 
 .bg-image {
-    background-image: url('../assets/img/ciel.jpeg');
+    background-image: url('../assets/img/bubble2.jpg');
     background-size: cover;
     background-position: center;
 }
@@ -66,6 +83,13 @@
     letter-spacing: 0.05rem;
     padding: 0.75rem 1rem;
     border-radius: 2rem;
+    background-color: #ACD9E8;
+    border-color: white;
+}
+
+.btn-login:hover {
+    background-color: #66BFD4;
+    border-color: white;
 }
 
 .form-label-group {

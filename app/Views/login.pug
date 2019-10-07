@@ -3,8 +3,8 @@ include layout/layout
 block content
   .container-fluid
     .row.no-gutter
-      .d-none.d-md-flex.col-md-4.col-lg-6.bg-image
-      .col-md-8.col-lg-6
+      .d-none.d-md-flex.col-md-4.col-lg-8.bg-image
+      .col-md-8.col-lg-4
         .login.d-flex.align-items-center.py-5
           .container
             .row
@@ -18,11 +18,11 @@ block content
                   .form-group.text-center
                     .form-check.form-check-inline
                       input#inlineCheckbox1.form-check-input(type='radio' name='inputSex' value='male')
-                      label.form-check-label.fas.fa-male(for='inlineCheckbox1')
-                    .form-check.form-check-inline
+                      label.form-check-label.fas.fa-male.fa-2x(for='inlineCheckbox1')
+                      .form-check
                       input#inlineCheckbox2.form-check-input(type='radio' name ='inputSex' value='female')
-                      label.form-check-label.fas.fa-female(for='inlineCheckbox2')
-                    .form-group
+                      label.form-check-label.fas.fa-female.fa-2x(for='inlineCheckbox2')
+                    .form-group.mt-4
                       .well.well-sm.text-center
                         .btn-group(data-toggle='buttons')
                           label.btn.btn-success.active
@@ -46,4 +46,4 @@ block content
                           span#demo
                         input.slider#myRange(type='range' min='18' max='100' value='60' name='inputAge')
 
-                  a.btn.btn-lg.btn-primary.btn-block.btn-login.text-uppercase.font-weight-bold.mt-5(href="/accueil") Connexion
+                    a.btn.btn-lg.btn-primary.btn-block.btn-login.text-uppercase.font-weight-bold.mt-5(href="/accueil") Connexion
