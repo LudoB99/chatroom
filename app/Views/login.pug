@@ -9,12 +9,41 @@ block content
           .container
             .row
               .col-md-9.col-lg-8.mx-auto
-                h2.login-heading.mb-4 Chatroom
+                h1.login-heading.mb-4.text-center Bienvenue
+                h3.login-heading.mb-4.text-center Connectez vous et chattez!
                 form
                   .form-label-group
-                    input#inputEmail.form-control(type='email' placeholder='Pseudonyme' required='' autofocus='')
-                    label(for='inputEmail') Pseudonyme
-                  .form-label-group
-                    input#inputSex.form-control.fa-check.custom-checkbox(type='checkbox' placeholder='Sexe' required='' autofocus='')
-                    label(for='inputEmail') Sexe
-                  button.btn.btn-lg.btn-primary.btn-block.btn-login.text-uppercase.font-weight-bold.mb-2(type='submit') Connexion
+                    input#inputName.form-control(type='text' placeholder='Pseudonyme' required='' name='inputName' autofocus='')
+                    label(for='inputName') Pseudonyme
+                  .form-group.text-center
+                    .form-check.form-check-inline
+                      input#inlineCheckbox1.form-check-input(type='radio' name='inputSex' value='male')
+                      label.form-check-label.fas.fa-male(for='inlineCheckbox1')
+                    .form-check.form-check-inline
+                      input#inlineCheckbox2.form-check-input(type='radio' name ='inputSex' value='female')
+                      label.form-check-label.fas.fa-female(for='inlineCheckbox2')
+                    .form-group
+                      .well.well-sm.text-center
+                        .btn-group(data-toggle='buttons')
+                          label.btn.btn-success.active
+                            input(type='radio' name='inputColor' autocomplete='off' checked='true')
+                            span.glyphicon.glyphicon-ok
+                          label.btn.btn-primary
+                            input(type='radio' name='inputColor' autocomplete='off')
+                            span.glyphicon.glyphicon-ok
+                          label.btn.btn-info
+                            input(type='radio' name='inputColor' autocomplete='off')
+                            span.glyphicon.glyphicon-ok
+                          label.btn.btn-warning
+                            input(type='radio' name='inputColor' autocomplete='off')
+                            span.glyphicon.glyphicon-ok
+                          label.btn.btn-danger
+                            input(type='radio' name='inputColor' autocomplete='off')
+                            span.glyphicon.glyphicon-ok
+                    .form-group
+                      .slidecontainer
+                        p Âge:
+                          span#demo
+                        input.slider#myRange(type='range' min='18' max='100' value='60' name='inputAge')
+
+                  a.btn.btn-lg.btn-primary.btn-block.btn-login.text-uppercase.font-weight-bold.mt-5(href="/accueil") Connexion
