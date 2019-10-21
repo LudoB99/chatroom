@@ -11,13 +11,14 @@ block content
               .col-md-9.col-lg-8.mx-auto
                 h1.login-heading.mb-4.text-center Bienvenue
                 h3.login-heading.mb-4.text-center Connectez vous et chattez!
-                form
+                form(method="post")
                   .form-label-group
-                    input#inputName.form-control(type='text' placeholder='Pseudonyme' required='' name='inputName' autofocus='')
+                    input#inputName.form-control(type='text' placeholder='Pseudonyme' required=''
+                      name='inputName' autofocus='true' maxlength="15")
                     label(for='inputName') Pseudonyme
                   .form-group.text-center
                     .form-check.form-check-inline
-                      input#inlineCheckbox1.form-check-input(type='radio' name='inputSex' value='male')
+                      input#inlineCheckbox1.form-check-input(type='radio' name='inputSex' value='male' checked="true")
                       label.form-check-label.fas.fa-male.fa-2x(for='inlineCheckbox1')
                       .form-check
                       input#inlineCheckbox2.form-check-input(type='radio' name ='inputSex' value='female')
@@ -26,19 +27,19 @@ block content
                       .well.well-sm.text-center
                         .btn-group(data-toggle='buttons')
                           label.btn.btn-success.active
-                            input(type='radio' name='inputColor' autocomplete='off' checked='true')
+                            input(type='radio' name='inputColor' autocomplete='off' checked='true' value="1E7E34")
                             span.glyphicon.glyphicon-ok
                           label.btn.btn-primary
-                            input(type='radio' name='inputColor' autocomplete='off')
+                            input(type='radio' name='inputColor' autocomplete='off' value="0069D9")
                             span.glyphicon.glyphicon-ok
                           label.btn.btn-info
-                            input(type='radio' name='inputColor' autocomplete='off')
+                            input(type='radio' name='inputColor' autocomplete='off' value="138496")
                             span.glyphicon.glyphicon-ok
                           label.btn.btn-warning
-                            input(type='radio' name='inputColor' autocomplete='off')
+                            input(type='radio' name='inputColor' autocomplete='off' value="E0A800")
                             span.glyphicon.glyphicon-ok
                           label.btn.btn-danger
-                            input(type='radio' name='inputColor' autocomplete='off')
+                            input(type='radio' name='inputColor' autocomplete='off' value="C82333")
                             span.glyphicon.glyphicon-ok
                     .form-group
                       .slidecontainer
@@ -46,4 +47,6 @@ block content
                           span#demo
                         input.slider#myRange(type='range' min='18' max='100' value='60' name='inputAge')
 
-                    a.btn.btn-lg.btn-primary.btn-block.btn-login.text-uppercase.font-weight-bold.mt-5(href="/accueil") Connexion
+                    button.btn-login(type="submit") Connexion
+
+                    script(type="text/javascript") document.addEventListener("DOMContentLoaded", function (event) { var slider = document.getElementById("myRange");var output = document.getElementById("demo");output.innerHTML = slider.value;slider.oninput = function() {output.innerHTML = this.value;};});

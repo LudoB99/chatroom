@@ -1,19 +1,56 @@
 include layout/layout
 
 block content
-  .container-fluid
-    .row
-      nav.navbar.navbar-light.bg-light.w-100.shadow
-        a(href="#").navbar-brand.font-weight-bold Chatroom
-        a(href="/logout").fas.fa-sign-out-alt.fa-2x
-    .row.m-4.mt-5
-      .col.listChatrooms
+  .container-fluid.mainContainer
+      .row
+        nav#mainNavbar.navbar.bg-light.w-100.shadow
+          a#userName.navbar-brand.font-weight-bold #{user.username}
+          a(href="/logout").fas.fa-sign-out-alt.fa-2x
+      .row.m-4.mt-5.chatWrapper
+
         <!-- LISTE DES CHATROOMS  -->
-        .list-group
-          .list-group-item ALLO
-          .list-group-item Mon
-          .list-group-item Coco
-      .col.chat
+        .col-3.listChatroomsWrapper.h-100
+          h3.titleHeader Chatrooms
+            button#myBtn ＋
+            div#myModal.modal
+              div.modal-content
+                span.close &times;
+                form(method="post")
+                  .form-group
+                    label(for='sName') Nom du serveur:
+                    input#sName.form-control(type='text' min="5" placeholder='Le nom sera visible par tous.' name='sName')
+                  .form-group
+                    label(for='sPass') Mot de passe:
+                    input#sPass.form-control(type='password' placeholder='Laisser vide pour aucun' name='sPass')
+                  .form-group
+                    label(for='sAge') Âge minimum:
+                    input#sAge.form-control(type='number' min=18 max=99 placeholder='Laisser vide pour aucun.' name='sAge')
+                  .form-group
+                    label(for='sMax') Maximum de personnes:
+                    input#sMax.form-control(type='number' min=0 max=99 placeholder='Laisser vide pour aucun.' name='sMax')
+                  button.btn-login(type="submit").float-right Créer
+          nav.listing
+            ul#onlineServers.onlineListing
+          h6#serverCounter
+
         <!-- CHAT LOG -->
-      .col.listOnlineUsers
+        .col-6.chatWrapper
+          .row.chat.w-100
+            h3#serverName.titleHeader.ml-4.w-100 Général
+            nav.listing.w-100.mr-2
+              ul#chat.onlineListing
+          .row.textInput
+            .form-inline
+              .form-group.mb-2.inputTextWrapper
+                label(for="inputText").sr-only
+                input#inputText(type="text" autofocus="true").form-control-plaintext
+
         <!-- LISTE DES USERS EN LIGNE -->
+        .col-3.listOnlineUsers.h-100
+          h3.titleHeader En ligne
+          nav.listing
+            ul#onlineUsers.onlineListing
+          h6#onlineCounter
+  script(type="text/javascript") pollServer();
+
+

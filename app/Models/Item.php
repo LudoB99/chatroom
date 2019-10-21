@@ -2,7 +2,7 @@
 
 /**
  * Example model class. The philosophy is to create normal classes with desired
- * features and use brokers to instantiate object from database or any other
+ * features and use serverBroker to instantiate object from database or any other
  * CRUD operations.
  *
  * This class refers to a really simple data class representing a shop item

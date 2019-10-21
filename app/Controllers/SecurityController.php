@@ -81,7 +81,7 @@ abstract class SecurityController extends \Zephyrus\Security\Controller
          * to prevent cross-site scripting attacks. For more information on the CSP
          * headers please see : https://content-security-policy.com/
          */
-        $csp = new ContentSecurityPolicy();
+        /*$csp = new ContentSecurityPolicy();
         $csp->setDefaultSources(["'self'"]);
         $csp->setFontSources(["'self'", 'https://fonts.googleapis.com', 'https://fonts.gstatic.com']);
         $csp->setStyleSources(["'self'", 'https://fonts.googleapis.com']);
@@ -89,13 +89,13 @@ abstract class SecurityController extends \Zephyrus\Security\Controller
             'https://www.google-analytics.com', 'http://connect.facebook.net']);
         $csp->setChildSources(["'self'", 'http://staticxx.facebook.com']);
         $csp->setImageSources(["'self'", 'data:']);
-        $csp->setBaseUri([$this->request->getBaseUrl()]);
+        $csp->setBaseUri([$this->request->getBaseUrl()]); */
 
         /**
          * The SecureHeader class is the instance that will actually sent all the
          * headers concerning security including the CSP. Other headers includes policy
          * concerning iframe integration, strict transport security and xss protection.
          */
-        parent::getSecureHeader()->setContentSecurityPolicy($csp);
+        //parent::getSecureHeader()->setContentSecurityPolicy($csp);
     }
 }
