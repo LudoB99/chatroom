@@ -14,20 +14,19 @@ block content
             button#myBtn ＋
             div#myModal.modal
               div.modal-content
-                span.close &times;
                 form(method="post")
                   .form-group
                     label(for='sName') Nom du serveur:
-                    input#sName.form-control(type='text' min="5" placeholder='Le nom sera visible par tous.' name='sName')
+                    input#sName.form-control(required="required" placeholder='Le nom sera visible par tous.' name='sName')
                   .form-group
                     label(for='sPass') Mot de passe:
-                    input#sPass.form-control(type='password' placeholder='Laisser vide pour aucun' name='sPass')
+                    input#sPass.form-control(required="required" type='password' name='sPass')
                   .form-group
                     label(for='sAge') Âge minimum:
-                    input#sAge.form-control(type='number' min=18 max=99 placeholder='Laisser vide pour aucun.' name='sAge')
+                    input#sAge.form-control(required="required" type='number' min=18 max=99  name='sAge')
                   .form-group
                     label(for='sMax') Maximum de personnes:
-                    input#sMax.form-control(type='number' min=0 max=99 placeholder='Laisser vide pour aucun.' name='sMax')
+                    input#sMax.form-control(type='number' min=0 max=99  name='sMax')
                   button.btn-login(type="submit").float-right Créer
           nav.listing
             ul#onlineServers.onlineListing

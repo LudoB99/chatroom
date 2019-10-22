@@ -16,10 +16,10 @@ class LoginController extends SecurityController
     public function logIn()
     {
         $form = $this->buildForm();
-        $userID = $this->createUser($form);
-        if(!is_null($userID))
+        $user = $this->createUser($form);
+        if(!is_null($user->id))
         {
-            Session::getInstance()->set("userID", $userID);
+            Session::getInstance()->set("user", $user);
             return $this->redirect("/accueil");
         }
         Flash::error("Le nom d'utilisateur est déjà pris.");
@@ -33,7 +33,8 @@ class LoginController extends SecurityController
         {
             $user = $this->generateUser($form);
             $id = $broker->insertTempUser($user);
-            return $id;
+            $user->id = $id;
+            return $user;
         }
         return null;
     }
@@ -51,6 +52,10 @@ class LoginController extends SecurityController
 
     public function renderLogin()
     {
+        $user = Session::getInstance()->read('user');
+        if(isset($user)){
+            return $this->redirect("/accueil");
+        }
         return $this->render("login", ["title" => "Chatroom - Login"]);
     }
 }

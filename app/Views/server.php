@@ -16,12 +16,12 @@ switch ($method) {
 
 function addUserToServer()
 {
-    $username = $_REQUEST['userName'];
+    $user = Session::getInstance()->read('user');
     $serverName = $_REQUEST['serverName'];
     $broker = new ServerBroker();
-    $userID = $broker->getIdByUsername($username);
+    $broker->removeUserFromServer($user->id);
     $serverID = $broker->selectServerIdByName($serverName);
-    $broker->addUserToServer($userID, $serverID);
+    $broker->addUserToServer($user->id, $serverID);
 }
 
 function getMessagesFromServer()

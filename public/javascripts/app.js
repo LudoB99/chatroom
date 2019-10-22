@@ -2,33 +2,29 @@
 
 
 var serverName = "Général";
-var userName = "";
-var firstLog = true;
 var input = "";
 var message = "";
 
-document.onreadystatechange = function () {
+$( document ).ready(function () {
     setUpModal();
     updateClicks();
-    userName = document.getElementById("userName").textContent;
-
-    input = document.getElementById("inputText");
-    input.addEventListener("keyup", function(event) {
-        if (event.keyCode === 13) {
-            event.preventDefault();
-            let text = input.value;
-            if(text === ""){
+    let userName = $("#userName");
+    $("#inputText").keyup(function(event) {
+        let key  = (event.keyCode ? event.keyCode : event.which);
+        let input = $("#inputText");
+        if (key === 13) {
+            let text = input.val();
+            if (text === "") {
                 return;
             }
-            input.value = '';
+            input.val("");
             let timestamp = new Date().toLocaleTimeString();
-            fullText = "(" + timestamp + ") " + userName + ": " + text;
-            message = fullText;
+            message = "(" + timestamp + ") " + userName.text() + ": " + text;
             sendUserMessagesToServer();
             message = "";
         }
     });
-};
+});
 
 function pollServer() {
     chatPoll();
@@ -43,11 +39,10 @@ function updateLists() {
 }
 
 function updateClicks() {
-    document.addEventListener('click', function (event) {
-        if (!event.target.matches('#onlineServers li')) return;
+    $("li").on('click', function (event) {
         event.preventDefault();
         changeServer(event.target);
-    }, false);
+    });
 }
 
 
@@ -58,69 +53,51 @@ function updateChatList(){
 }
 
 function getMessagesFromServer() {
-    let req = new XMLHttpRequest();
-    req.onreadystatechange = function () {
-        if (req.readyState === 4 && req.status === 200) {
-            let chat = document.getElementById("chat");
-            let response = JSON.parse(this.response);
-            if(!firstLog){
-                while(chat.firstChild ){
-                    chat.removeChild( chat.firstChild ); //Clear the list for update
-                }
-            }
-            firstLog = false;
-            for(let i = 0; i < response.length; i++) {
-                let message = response[i];
-                let li = document.createElement("li");
-                let text = message.messages;
-                li.appendChild(document.createTextNode(text));
-                chat.appendChild(li);
-            }
-            updateScroll();
+    $.ajax({
+        url: ("server?method=4&server=" + serverName),
+        context: document.body
+    }).done(function (messages) {
+        let chat = $("#chat")[0];
+        let response = JSON.parse(messages);
+        while( chat.firstChild ){
+            chat.removeChild( chat.firstChild ); //Clear the list for update
         }
-    };
-    let url = "server?method=4&server=" + serverName;
-    req.open("GET", url);
-    req.send();
+        for (let i = 0; i < response.length; i++) {
+            let message = response[i].messages;
+            let li = $("<li>" + message + "</li>");
+            chat.append(li[0]);
+        }
+        updateScroll();
+    });
 }
 
 function sendUserMessagesToServer(){
-    if(message === ""){
-        return;
+    if(message.length !== 0){
+        $.ajax({
+            url: "server?method=3&message=" + message +"&server=" + serverName,
+            context: document.body
+        });
     }
-    let req = new XMLHttpRequest();
-    req.onreadystatechange = function () {
-        if (req.readyState === 4 && req.status === 200) {
-        }
-    };
-    let url = "server?method=3&message=" + message
-        +"&server=" + serverName;
-    req.open("GET", url);
-    req.send();
 }
 
 // SERVER LIST
 
 function updateServerList() {
-    let req = new XMLHttpRequest();
-    req.onreadystatechange = function () {
-        if (req.readyState === 4 && req.status === 200) {
-            let onlineServers = this.response;
-            populateServerList(JSON.parse(onlineServers));
-            updateClicks();
-        }
-    };
-    let url = "server?method=2";
-    req.open("GET", url);
-    req.send();
+    $.ajax({
+        url: "server?method=2",
+        context: document.body
+    }).done(function(onlineServers) {
+        populateServerList(JSON.parse(onlineServers));
+        updateClicks();
+    });
 }
 
 function changeServer(newServerName) {
     if(true){ //Vérification mot de passe / age
-        addUserToServer(newServerName);
         serverName = trimName(newServerName.textContent);
-        document.getElementById("serverName").innerHTML = serverName;
-        let chat = document.getElementById("chat");
+        addUserToServer(serverName);
+        $("#serverName").html(serverName);
+        let chat = $("#chat");
         while(chat.firstChild ){
             chat.removeChild( chat.firstChild );
         }
@@ -128,66 +105,51 @@ function changeServer(newServerName) {
 }
 
 function addUserToServer(newServerName) {
-    let req = new XMLHttpRequest();
-    req.onreadystatechange = function () {
-        if (req.readyState === 4 && req.status === 200) {
-        }
-    };
-    req.open("GET", "server?method=5&serverName=" + newServerName + "&userName=" + userName);
-    req.send();
+    $.ajax({
+        url: "server?method=5&serverName=" + newServerName,
+        context: document.body
+    });
 }
 
 function populateServerList(onlineServers) {
-    let list = document.getElementById("onlineServers");
-    let counter = document.getElementById("serverCounter");
-    counter.innerHTML = "Il y a " + onlineServers.length + " serveurs disponibles.";
-    while( list.firstChild ){
-        list.removeChild( list.firstChild ); //Clear the list for update
+    let list = $("#onlineServers")[0];
+    let counter = $("#serverCounter");
+    counter.html("Il y a " + onlineServers.length + " serveurs disponibles.");
+    while (list.firstChild) {
+        list.removeChild(list.firstChild); //Clear the list for update
     }
-
     for(let i = 0; i < onlineServers.length; i++) {
         let server = onlineServers[i];
-        let li = document.createElement("li");
         let text = server.name;
         text += server.minAge === "" ? "" : " (" + server.minAge + "+)";
-        li.appendChild(document.createTextNode(text));
-        list.appendChild(li);
+        let li = $("<li>" + text + "</li>");
+        list.append(li[0]);
     }
 }
 
 // ONLINE USERS
 
 function updateUsersList() {
-    let req = new XMLHttpRequest();
-    req.onreadystatechange = function () {
-        if (req.readyState === 4 && req.status === 200) {
-            let onlineUsers = this.response;
-            populateUserList(JSON.parse(onlineUsers));
-        }
-    };
-    req.open("GET", "server?method=1&serverName=" + serverName);
-    req.send();
+    $.ajax({
+       url: "server?method=1&serverName=" + serverName,
+        context: document.body
+    }).done(function (onlineUsers) {
+        populateUserList(JSON.parse(onlineUsers));
+    });
 }
 
 function populateUserList(onlineUsers) {
-    let list = document.getElementById("onlineUsers");
-    let counter = document.getElementById("onlineCounter");
-    counter.innerHTML = "Il y a " + onlineUsers.length + " utilisateurs dans la salle.";
+    let list = $("#onlineUsers")[0];
+    let counter = $("#onlineCounter");
+    counter.html("Il y a " + onlineUsers.length + " utilisateurs dans la salle.");
     while( list.firstChild ){
         list.removeChild( list.firstChild ); //Clear the list for update
     }
     for(let i = 0; i < onlineUsers.length; i++) {
         let user = onlineUsers[i];
-        let li = document.createElement("li");
-        let tooltip = document.createElement("span");
-        let tooltiptext = (" " + user.age + "/" + user.sex);
-        li.appendChild(document.createTextNode(user.username));
-        tooltip.appendChild(document.createTextNode(tooltiptext));
-        li.appendChild(tooltip);
-        li.style.color = "#" + user.color;
-        //li.classList.add("tooltip");
-        tooltip.setAttribute("class", "tooltiptext");
-        list.appendChild(li);
+        let li = $("<li>" + user.username + "</li>");
+        li.css('color', '#' + user.color);
+        list.append(li[0]);
     }
 }
 
@@ -204,31 +166,25 @@ function chatPoll() {
 //  CHAT SCROLL
 
 function updateScroll() {
-    var element = document.getElementById("chat");
-    element.scrollTop = element.scrollHeight;
+    var chat = $('#chat')[0];
+    chat.scrollTop = chat.scrollHeight;
 }
 
 // MODAL
 
 function setUpModal() {
 
-    var modal = document.getElementById("myModal");
-    var btn = document.getElementById("myBtn");
-    var span = document.getElementsByClassName("close")[0];
 
-    btn.onclick = function() {
-        modal.style.display = "block";
-    };
 
-    span.onclick = function() {
-        modal.style.display = "none";
-    };
+    $("#myBtn").on('click',  function() {
+        $("#myModal").css('display', 'block');
+    });
 
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+    $(window).on('click', function(event) {
+        if (event.target == $("#myModal")[0]) {
+            $("#myModal").css('display', 'none');
         }
-    };
+    });
 }
 
 // OTHER

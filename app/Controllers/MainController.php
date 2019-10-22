@@ -21,21 +21,19 @@ class MainController extends SecurityController
 
     public function renderMain()
     {
-        $userID = Session::getInstance()->read("userID");
-        $broker = new serverBroker();
-        $user = $broker->selectUserById($userID);
+        $user = Session::getInstance()->read("user");
         return $this->render("index", ["title" => "Chatroom", "user" => $user]);
     }
 
     public function createServer()
     {
-        $userID = Session::getInstance()->read("userID");
+        $user = Session::getInstance()->read("user");
         $form = $this->buildForm();
         $server = $this->generateServer($form);
         $broker = new serverBroker();
-        $broker->createServer($server, $userID);
+        $broker->createServer($server, $user->id);
         $serverID = $broker->selectServerIdByName($server->name);
-        $broker->addUserToServer($userID, $serverID);
+        $broker->addUserToServer($user->id, $serverID);
         return $this->renderMain();
     }
 
@@ -57,10 +55,10 @@ class MainController extends SecurityController
 
     public function logMeOut()
     {
-        $userID = Session::getInstance()->read("userID");
+        $user = Session::getInstance()->read("user");
         $broker = new serverBroker();
-        $broker->removeUserFromServer($userID);
-        $broker->deleteUser($userID);
+        $broker->removeUserFromServer($user->id);
+        $broker->deleteUser($user->id);
         Session::getInstance()->destroy();
         return $this->redirect("/");
     }
