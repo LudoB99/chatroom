@@ -38,7 +38,6 @@ CREATE TABLE IF NOT EXISTS `Logs` (
 INSERT INTO `Logs` (`serverID`, `messages`) VALUES
 (29, '(21:37:51) Bob Lewis: Bienvenue dans mon serveurs les amis.'),
 (29, '(21:38:02) Bob Lewis: Aujourd''hui nous allons apprendre le JavaScript!'),
-(12, '(9:38:57 PM) LittleMac: Est-ce qu''il y a des frères d''anus dans la salle?'),
 (3, '(21:44:55) RandomUser: Bonjour, je suis un RandomUser et je me suis fait ajouter au serveur ''''Général'''' par défaut. '),
 (3, '(9:45:11 PM) LittleMac: Bonjour RandomUser!'),
 (12, '(21:46:15) UnoBoy: Coucou!');
@@ -63,7 +62,6 @@ CREATE TABLE IF NOT EXISTS `Server` (
 
 INSERT INTO `Server` (`id`, `name`, `minAge`, `password`, `maxUsers`) VALUES
 (3, 'Général', 18, '', 0),
-(12, 'Les frères d''anus', 30, '4654d793972c3b6a1d48fb0ab58d9cb0de46c3d33d605f9222c283dfaa12d420', 30),
 (29, 'Serveur de Bob Lewis', 0, 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 0);
 
 -- --------------------------------------------------------
